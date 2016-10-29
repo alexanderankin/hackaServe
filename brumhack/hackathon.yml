@@ -1,0 +1,7 @@
+name: brumhack
+description: ''
+twilio_api_key: letmein
+messages:
+  - text: Your first message here
+    sendtime: 1477772000982
+    group: all

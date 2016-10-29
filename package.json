@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src --out-dir lib"
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --out-dir lib --watch"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,8 @@
   },
   "homepage": "https://github.com/Student-Studios/hackaServe#readme",
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "write-yaml": "^0.2.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
