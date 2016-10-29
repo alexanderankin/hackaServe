@@ -4,7 +4,7 @@ import yaml from 'write-yaml';
 
 const handler = (name, options) => {
     if (fs.existsSync(path.join(process.cwd(), name))) {
-        console.error('ERROR: Directory already exists, terminating...');
+        console.error('ERROR: Directory already exists, why do I even bother...');
         process.exit(1);
     }
     console.log("HackaServe: Creating a new directory...");
@@ -12,12 +12,15 @@ const handler = (name, options) => {
     const info = {
         name,
         description: '',
+        twilio_account_id: options.twilio_id,
         twilio_api_key: options.twilio_key,
+        twilio_phone_number: options.twilio_number,
         messages: [{
             name: 'first_message',
             text: 'Your first message here',
             sendtime: Date.now(),
-            group: 'all'
+            group: 'all',
+            type: 'once'
         }],
     }
     yaml.sync(path.join(name, 'hackathon.yml'), info);
