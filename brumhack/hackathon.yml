@@ -2,6 +2,11 @@ name: brumhack
 description: ''
 twilio_api_key: letmein
 messages:
-  - text: Your first message here
-    sendtime: 1477772000982
+  - name: first_message
+    text: Your first message here
+    sendtime: 1477773178456
+    group: all
+  - name: first_message
+    text: Another first message here
+    sendtime: 1477773178456
     group: all

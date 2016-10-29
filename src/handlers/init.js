@@ -4,10 +4,10 @@ import yaml from 'write-yaml';
 
 const handler = (name, options) => {
     if (fs.existsSync(path.join(process.cwd(), name))) {
-        console.log('Directory already exists, terminating...');
+        console.error('ERROR: Directory already exists, terminating...');
         process.exit(1);
     }
-    console.log("Creating a new directory...");
+    console.log("HackaServe: Creating a new directory...");
     fs.mkdirSync(path.join(process.cwd(), name));
     const info = {
         name,
@@ -33,6 +33,7 @@ const handler = (name, options) => {
         }]
         yaml.sync(path.join(name, 'attendees.yml'), userInfo);
     }
+    console.log(`HackaServe: Process complete, type "$ cd ./${name}" to use your hackathon`);
 };
 
 export default handler;

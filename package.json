@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Student-Studios/hackaServe#readme",
   "dependencies": {
     "commander": "^2.9.0",
+    "read-yaml": "^1.0.0",
     "write-yaml": "^0.2.2"
   },
   "devDependencies": {
