@@ -58,30 +58,36 @@ const send = (messageName, options) => {
     const attendeesList = readYaml.sync('attendees.yml');
 
     const bar = new ProgressBar('Sending [:bar] :current/:total', {
-        total: attendeesList.length,
+        total: options.limit ? options.limit : attendeesList.length,
     })
+
+    let sent = 0;
 
     const updatedAttendees = attendeesList.map(attendee => {
         if (shouldSend(attendee, options.groups, messageName)) {
-            client.sendMessage({
-                to: attendee.telephone,
-                from: twilio_phone_number,
-                body: message.text,
-            }, (err, responseData) => {
-                if (err) {
-                    logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - ${err.message}`);
-                } else {
-                    logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - Message sent`)
-                }
-                bar.tick();
-            });
-            return {
-                ...attendee,
-                received: attendee.received ? [
-                    messageName,
-                    ...attendee.received,
-                ] : [messageName],
-            };
+            if (!options.limit || (options.limit && options.limit > sent)) {
+                client.sendMessage({
+                    to: attendee.telephone,
+                    from: twilio_phone_number,
+                    body: message.text,
+                }, (err, responseData) => {
+                    if (err) {
+                        logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - ${err.message}`);
+                    } else {
+                        logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - Message sent`)
+                    }
+                    bar.tick();
+                });
+                return {
+                    ...attendee,
+                    received: attendee.received ? [
+                        messageName,
+                        ...attendee.received,
+                    ] : [messageName],
+                };
+            } else {
+                return { ...attendee };
+            }
         } else {
             return {
                 ...attendee,

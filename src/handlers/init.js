@@ -18,7 +18,6 @@ const handler = (name, options) => {
         messages: [{
             name: 'first_message',
             text: 'Your first message here',
-            sendtime: Date.now(),
             group: 'all',
             type: 'once'
         }],

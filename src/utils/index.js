@@ -15,7 +15,7 @@ export const getMessagesByName = (messages, name) => {
 
 export const logMessageEvents = (messageName, log) => {
     fs.openSync(path.join(process.cwd(), `${messageName}.log`), 'a');
-    fs.writeFileSync(path.join(process.cwd(), `${messageName}.log`), log);
+    fs.appendFileSync(path.join(process.cwd(), `${messageName}.log`), `${log}\n`);
 }
 
 export const currentDateTimeString = () => {
