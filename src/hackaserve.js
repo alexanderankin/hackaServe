@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import program from 'commander';
 import init from './handlers/init';
 import send from './handlers/send';
