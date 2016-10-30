@@ -11,8 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src --out-dir lib",
     "watch": "babel src --out-dir lib --watch",
-    "prepublish": "babel src --out-dir lib",
-    "postinstall": "npm link"
+    "prepublish": "babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
