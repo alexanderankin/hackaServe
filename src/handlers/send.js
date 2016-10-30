@@ -1,3 +1,4 @@
+import yaml from 'write-yaml';
 import readYaml from 'read-yaml';
 import twilio from 'twilio';
 import fs from 'fs';
@@ -5,6 +6,24 @@ import path from 'path';
 import ProgressBar from 'progress';
 
 import { getMessagesByName, logMessageEvents, currentDateTimeString } from 'src/utils';
+
+const shouldSend = (attendee, groups, messageName) => {
+    if (attendee.received && attendee.received.includes(messageName)) return false;
+    if (groups) {
+        if (groups instanceof Array) {
+            let groupMatched = false;
+            groups.forEach((group) => {
+                if (attendee.groups && attendee.groups.includes(group)) groupMatched = true;
+            });
+            return groupMatched;
+        } else if (typeof groups === 'string') {
+            if (attendee.groups && attendee.groups.includes(groups)) return true;
+            else false;
+        }
+    } else {
+        return true;
+    }
+}
 
 const send = (messageName, options) => {
     if (!messageName) {
@@ -43,26 +62,33 @@ const send = (messageName, options) => {
     })
 
     const updatedAttendees = attendeesList.map(attendee => {
-        client.sendMessage({
-            to: attendee.telephone,
-            from: twilio_phone_number,
-            body: message.text,
-        }, (err, responseData) => {
-            if (err) {
-                logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - ${err.message}`);
-            } else {
-                logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - Message sent`)
-            }
-            bar.tick();
-        });
-        return {
-            ...attendee,
-            received: attendee.received ? [
-                messageName,
-                ...attendee.received,
-            ] : [messageName],
-        };
+        if (shouldSend(attendee, options.groups, messageName)) {
+            client.sendMessage({
+                to: attendee.telephone,
+                from: twilio_phone_number,
+                body: message.text,
+            }, (err, responseData) => {
+                if (err) {
+                    logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - ${err.message}`);
+                } else {
+                    logMessageEvents(messageName, `[${currentDateTimeString()}]: ${attendee.name} - ${attendee.telephone} - Message sent`)
+                }
+                bar.tick();
+            });
+            return {
+                ...attendee,
+                received: attendee.received ? [
+                    messageName,
+                    ...attendee.received,
+                ] : [messageName],
+            };
+        } else {
+            return {
+                ...attendee,
+            };
+        }
     });
+    yaml.sync('attendees.yml', updatedAttendees);
 };
 
 export default send;

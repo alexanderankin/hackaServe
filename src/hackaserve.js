@@ -2,6 +2,10 @@ import program from 'commander';
 import init from './handlers/init';
 import send from './handlers/send';
 
+const list = (val) => {
+  return val.split(',');
+}
+
 program
     .version('0.0.1')
     .command('init [name]')
@@ -16,7 +20,7 @@ program
     .version('0.0.1')
     .command('send [message_name]')
     .description('Send message to attendees')
-    //.option('-g, --groups <groups>', 'All the groups to send a message to')
+    .option('-g, --groups <groups>', 'All the groups to send a message to', list)
     .action(send);
 
 program.parse(process.argv);
