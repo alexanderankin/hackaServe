@@ -3,6 +3,7 @@ import init from './handlers/init';
 import send from './handlers/send';
 import addMessage from './handlers/add/message';
 import addAttendee from './handlers/add/attendee';
+import addFromCsv from './handlers/add/csv';
 
 const list = (val) => {
   return val.split(',');
@@ -41,6 +42,11 @@ program
     .option('-t, --telephone <telephone>', 'The SMS number for the attendee you are adding')
     .option('-g, --groups <groups>', 'The groups to which you are adding your attendee (automatically added to attendee group)', list)
     .action(addAttendee);
+
+program
+    .command('add-attendees-from-csv [csvfilename]')
+    .description('Add multiple attendees using a csv')
+    .action(addFromCsv);
 
 program
     .command('*')

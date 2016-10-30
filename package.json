@@ -2,11 +2,14 @@
   "name": "hacka-serve",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/index.js",
+  "main": "lib/hackaserve.js",
+  "bin" : { "hackaserve" : "lib/hackaserve.js" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src --out-dir lib",
-    "watch": "babel src --out-dir lib --watch"
+    "watch": "babel src --out-dir lib --watch",
+    "prepublish": "babel src --out-dir lib",
+    "postinstall": "babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -20,8 +23,10 @@
   "homepage": "https://github.com/Student-Studios/hackaServe#readme",
   "dependencies": {
     "commander": "^2.9.0",
+    "csv-parse": "^1.1.7",
     "progress": "^1.1.8",
     "read-yaml": "^1.0.0",
+    "readline-sync": "^1.4.5",
     "twilio": "^2.11.0",
     "write-yaml": "^0.2.2"
   },

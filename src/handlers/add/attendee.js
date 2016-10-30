@@ -1,3 +1,8 @@
+import readYaml from 'read-yaml';
+import yaml from 'write-yaml';
+import fs from 'fs';
+import path from 'path';
+
 const addAttendee = (name, options) => {
     console.log('HackaServe: Adding your message to your hackathon.yml');
     if (!name) {

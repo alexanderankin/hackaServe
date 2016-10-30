@@ -17,7 +17,7 @@ const handler = (name, options) => {
         twilio_phone_number: options.twilio_number,
         messages: [{
             name: 'first_message',
-            text: 'Your first message here',
+            text: 'HackKings: Lunch is now served in room K1.42',
             group: 'all',
             type: 'once'
         }],
