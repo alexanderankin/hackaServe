@@ -5,7 +5,7 @@
   "main": "./lib/hackaserve.js",
   "preferGlobal": true,
   "bin": {
-    "hackaserve": "node lib/hackaserve.js"
+    "hackaserve": "lib/hackaserve.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
