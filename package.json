@@ -1,10 +1,10 @@
 {
-  "name": "hacka-serve",
+  "name": "hackaserve",
   "version": "1.1.0",
   "description": "",
-  "main": "lib/hackaserve.js",
+  "main": "./lib/hackaserve.js",
   "bin": {
-    "hackaserve": "lib/hackaserve.js"
+    "hackaserve": "./lib/hackaserve.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
