@@ -26,11 +26,11 @@ const handler = (name, options) => {
     if (options.example_yml) {
         const userInfo = [{
             name: 'Adam Green',
-            telephone: '07545771492',
-            email: 'adie9@btinternet.com',
+            telephone: 'YEEE...NO',
+            email: 'YEEE...NO',
             groups: [
                 'attendee',
-                'gluten-intolerant',
+                'fussy',
             ]
         }]
         yaml.sync(path.join(name, 'attendees.yml'), userInfo);
