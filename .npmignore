@@ -1,1 +1,5 @@
 **/src/**
+hackathon.yml
+attendees.yml
+*.log
+*.csv
