@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import ProgressBar from 'progress';
 
-import { getMessagesByName, logMessageEvents, currentDateTimeString } from 'src/utils';
+import { getMessagesByName, logMessageEvents, currentDateTimeString, shuffleArray } from 'src/utils';
 
 const shouldSend = (attendee, groups, messageName) => {
     if (attendee.received && attendee.received.includes(messageName)) return false;
@@ -55,7 +55,7 @@ const send = (messageName, options) => {
     console.log(`Message: ${message.text}`);
 
     const client = twilio(twilio_account_id, twilio_api_key);
-    const attendeesList = readYaml.sync('attendees.yml');
+    const attendeesList = shuffleArray(readYaml.sync('attendees.yml'));
 
     const bar = new ProgressBar('Sending [:bar] :current/:total', {
         total: options.limit ? options.limit : attendeesList.length,
@@ -78,6 +78,7 @@ const send = (messageName, options) => {
                     }
                     bar.tick();
                 });
+                sent += 1;
                 return {
                     ...attendee,
                     received: attendee.received ? [
@@ -95,6 +96,10 @@ const send = (messageName, options) => {
         }
     });
     yaml.sync('attendees.yml', updatedAttendees);
+    console.log('All messages sent');
+    if (options.limit > sent) {
+        console.warn('WARNING: you set a limit higher than the number of attendees I could send to. If you were expecting this, please ignore this message');
+    }
 };
 
 export default send;
