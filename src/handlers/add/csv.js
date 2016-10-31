@@ -16,6 +16,16 @@ const readCsv = (file, options) => {
         process.exit(1);
     }
 
+    if (options.overwrite) {
+        console.log('WARNING: What? You don\'t like your current list? is nothing good enough?');
+        const answer = readline.question('Hackaserve: Are you absolutely sure you want to do this? Type yes or anything else for no');
+        if (answer.toLowerCase() !== 'yes') {
+            console.log('Hackaserve: god... make up your mind already... Shutting down');
+            process.exit(0);
+        }
+
+    }
+
     const records = parseCsv(fs.readFileSync(path.join(process.cwd(), file), { encoding: 'UTF-8' }));
     if (!records.length) {
         console.error('ERROR: I cannot read this data, I am only capable of reading csv files like adam,058457,adam@studentstudios.co');
@@ -41,7 +51,7 @@ const readCsv = (file, options) => {
         groups: {}
     }
     record.forEach((column, index) => {
-        const answer = readline.question(`Information ${column} - What is this information?`)
+        const answer = readline.question(`Information ${column} - What is this information?`);
         if (answers.includes(answer)) {
             `Information ${column} is a ${answer}`
             map[answer] = index;
@@ -62,7 +72,7 @@ const readCsv = (file, options) => {
         }
     });
 
-    if (!fs.existsSync(path.join(process.cwd(), 'attendees.yml'))) {
+    if (!fs.existsSync(path.join(process.cwd(), 'attendees.yml')) || options.overwrite) {
         console.warn('WARNING: No attendees.yml exist, I\'ll generate it because I\'ve got nothing better to do');
         console.log('INFO: If you have not added attendees yet, then this is normal. If you have, you have probably renamed or deleted the yml');
         yaml.sync('attendees.yml', attendees);
