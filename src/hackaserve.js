@@ -48,6 +48,7 @@ program
 program
     .command('add-attendees-from-csv [csvfilename]')
     .description('Add multiple attendees using a csv')
+    .option('-o, --overwrite', 'Causes your attendees.yml to be overwritten with the data from the CSV')
     .action(addFromCsv);
 
 program
