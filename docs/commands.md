@@ -61,3 +61,13 @@ This command will explain the responses it is expecting when it's run
 Add a new message to the hackathon.yml to be sent using the hackaserve "send" command.
 ### Flags
 - ```-b <text> OR --body <text>``` - The message you wish to send to your attendees
+## HackaServe send - send a message to your attendees via thw twilio api
+```$ Hackaserve send <message_name>```
+### Purpose
+Sends the message identified by the message name passed. Ensure your message name is typed correctly
+### Flags
+- ```-g <groups> OR --groups <groups>``` - All the groups you wish to send messages to (defaults to attenddes)
+- ```-l <limits> OR --limits <limits>``` - Limit the number of people to whom you send a message. This is an integer
+value which speecifies how many people the message should be sent to. If you tun the same send command again, it wont send
+to the people already sent to using the limit. This makes it possile to do something like:
+Send 10, send 10, send 10, send rest and essentially invite people up in waves.
