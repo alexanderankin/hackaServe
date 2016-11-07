@@ -45,3 +45,19 @@ formatted and if it's high demand I might pick up the ticket.
 
 Or better yet you could create a pull request with a command that converts
 your chosen format to our yaml format
+## HackaServe add-attendees-from-csv - add a group of attendees from a csv
+```$ Hackaserve add-attendees-from-csv <csv_filename>```
+### Purpose
+Add a set of attendees from a csv file. This runs an interactive console session in which a row of data is loaded from your csv and
+the console will ask you questions about each item. It will ask you to identify what piece of data the column. For example it may go
+"what is this data: 07485 392 439?" and expect a response telephone. 
+
+This command will explain the responses it is expecting when it's run
+### Flags
+- ```-o OR --overwrite``` - overwrites an existing Attendees.yml file with the given CSV (will warn you about this)
+## HackaServe add-message - add a message to the hackathon.yml file
+```$ Hackaserve add-message <message_name>```
+### Purpose
+Add a new message to the hackathon.yml to be sent using the hackaserve "send" command.
+### Flags
+- ```-b <text> OR --body <text>``` - The message you wish to send to your attendees

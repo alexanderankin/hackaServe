@@ -12,9 +12,9 @@ const handler = (name, options) => {
     const info = {
         name,
         description: '',
-        twilio_account_id: options.twilio_id,
-        twilio_api_key: options.twilio_key,
-        twilio_phone_number: options.twilio_number,
+        twilio_account_id: options.twilio_id || null,
+        twilio_api_key: options.twilio_key || null,
+        twilio_phone_number: options.twilio_number || null,
         messages: [{
             name: 'first_message',
             text: 'HackKings: Lunch is now served in room K1.42',
